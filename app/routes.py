@@ -1,16 +1,10 @@
+from flask import render_template
 from app import app
 
 @app.route('/')
 @app.route('/index')
 def index():
     user = {'username': 'Maria'}
-    # mock user implemented as a Python dictionary
-    return '''
-<html>
-    <head>
-        <title>Home Page - Microblog</title>
-    </head>
-    <body>
-        <h1>Hello, ''' + user['username'] + '''!</h1>
-    </body>
-</html>'''
+    return render_template('index.html', title='Home', user=user)
+# render_template() takes a template filename and a variable list of template arguments
+# and returns the same template, but with all the placeholders in it replaced with actual values
