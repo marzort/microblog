@@ -4,6 +4,7 @@ from app import app
 @app.route('/index')
 def index():
     user = {'username': 'Maria'}
+    # mock user implemented as a Python dictionary
     return '''
 <html>
     <head>
