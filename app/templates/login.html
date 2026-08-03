@@ -1,0 +1,28 @@
+<!-- reuse base.html template to ensure a consistent layout that includes a top nav bar -->
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Sign In</h1>
+    <!-- 
+    form element is used as a container for the web form;
+    action attribute is used to tell browser the URL that should be used
+    when submitting the info the user entered;
+    method attribute specifies HTTP request method that should
+    be used when submitting the form to the server;
+    novalidate attribute tells web browser to not apply validation to the
+    fields in this form 
+    -->
+    <form action="" method="post" novalidate>
+        {{ form.hidden_tag() }} <!-- generates hidden field with token -->
+        <p>
+            {{ form.username.label }}<br>
+            {{ form.username(size=32) }}
+        </p>
+        <p>
+            {{ form.password.label }}<br>
+            {{ form.password(size=32) }}
+        </p>
+        <p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>
+        <p>{{ form.submit() }}</p>
+    </form>
+{% endblock %}
