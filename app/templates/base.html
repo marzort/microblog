@@ -14,6 +14,20 @@
             <a href="/login">Login</a>
         </div>
         <hr>
+        <!-- 
+        with construct assigns result of function to a messages variable; 
+        get_flashed_messages() returns list of all messages registered with flash();
+        messages removed from list after requested
+        -->
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul>
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
         {% block content %}{% endblock %}
         <!-- block statement defines the place where the derived templates can insert themselves -->
     </body>
