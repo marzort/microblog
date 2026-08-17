@@ -1,5 +1,6 @@
 from datetime import datetime, timezone
 from typing import Optional
+from werkzeug.security import generate_password_hash, check_password_hash
 # includes general purpose db functions and classes like types and query builders
 import sqlalchemy as sa
 # provides support for using models
@@ -14,6 +15,11 @@ class User(db.Model):
     email: so.Mapped[str] = so.mapped_column(sa.String(120), index=True,
                                              unique=True)
     password_hash: so.Mapped[Optional[str]] = so.mapped_column(sa.String(256))
+
+    def set_password(self, password):
+        self.password_hash = generate_password_hash(password)
+    def check_password(self, password):
+        return check_password_hash(self.password_hash, password)
 
     posts: so.WriteOnlyMapped['Post'] = so.relationship(
         back_populates='author')
