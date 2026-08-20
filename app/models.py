@@ -8,6 +8,7 @@ import sqlalchemy as sa
 # provides support for using models
 import sqlalchemy.orm as so
 from app import db, login
+from hashlib import md5
 
 # represents users stored in db; inherits from base class db.Model
 class User(UserMixin, db.Model):
@@ -25,6 +26,10 @@ class User(UserMixin, db.Model):
 
     posts: so.WriteOnlyMapped['Post'] = so.relationship(
         back_populates='author')
+
+    def avatar(self, size):
+        digest = md5(self.email.lower().encode('utf-8')).hexdigest()
+        return f'https://www.gravatar.com/avatar/{digest}?d=identicon&s={size}'
 
     # tells Python how to print objects of this class; good for debugging
     def __repr__(self):
